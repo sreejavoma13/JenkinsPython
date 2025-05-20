@@ -11,13 +11,17 @@ pipeline {
         stage("Install") {
             steps {
                 sh '''
+                    sudo apt-get update
+                    sudo apt-get install -y python3.11-venv
+
                     python3 -m venv $VENV
                     . $VENV/bin/activate
                     pip install --upgrade pip
                     pip install -r requirements.txt
                 '''
             }
-        }
+}
+
 
         stage("Linting") {
             steps {
