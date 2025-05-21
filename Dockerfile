@@ -4,6 +4,7 @@ FROM python:3.11-slim
 # Set working directory
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y python3-venv
 # Copy application code
 COPY app.py test.py requirements.txt ./
 
