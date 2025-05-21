@@ -6,7 +6,7 @@ WORKDIR /app
 
 RUN apt-get update && apt-get install -y python3-venv
 # Copy application code
-COPY app.py test.py requirements.txt ./
+COPY main.py test_main.py requirements.txt ./
 
 # Install dependencies
 RUN pip install --no-cache-dir -r requirements.txt
