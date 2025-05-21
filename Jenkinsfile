@@ -1,9 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'python:3.11-slim'
-        }
-    }
+    agent any
 
     environment {
         VENV = 'venv'
@@ -12,39 +8,39 @@ pipeline {
     }
 
     stages {
-        stage("Install") {
+        stage ("Install") {
             steps {
                 sh '''
-                    sudo apt-get update
-                    sudo apt-get install -y python3.11-venv
-
                     python3 -m venv $VENV
                     . $VENV/bin/activate
                     pip install --upgrade pip
                     pip install -r requirements.txt
                 '''
             }
-}
-
-
-        stage("Linting") {
+        }
+        stage ("Linting") {
             steps {
-                echo "This is my Linting Step"
+                script {
+                    echo "This is my Linting Step"
+                }
+            }
+        }
+        stage ("Install Packages") {
+            steps {
+                script {
+                    echo "This is Install PAkcges Step"
+                }
+            }
+        }
+        stage ("Run Application") {
+            steps {
+                script {
+                    echo "This is my Run applcaition Step"
+                }
             }
         }
 
-        stage("Install Packages") {
-            steps {
-                echo "This is Install Packages Step"
-            }
-        }
-
-        stage("Run Application") {
-            steps {
-                echo "This is my Run application Step"
-            }
-        }
-
+    
         stage("Build Docker Image") {
             steps {
                 sh '''
